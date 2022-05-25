@@ -11,7 +11,6 @@ total_xp_list = []
 total_xp = 0
 
 
-
 for i in range(ITERATIONS):
     processed_resources = 0
     while starting_resources > 0:
