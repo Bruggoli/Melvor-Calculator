@@ -1,13 +1,14 @@
 import random
 import statistics
+from datetime import timedelta
 
 starting_resources = int(input("Starting resources: "))
 r_cycle = starting_resources
 double = int(input("Doubling chance: "))
 save = int(input("Saving chance: "))
 xp = int(input("XP per action: "))
-#crafting_time = float(input())
-ITERATIONS = 10
+crafting_time = float(input("Time per crafting cycle: "))
+ITERATIONS = 100
 total_list = []
 total_xp_list = []
 total_xp = 0
@@ -34,8 +35,9 @@ for i in range(ITERATIONS):
         total_xp = 0
     total_list.append(processed_resources)
 
+resource_increase = round(((statistics.mean(total_list) - starting_resources) / starting_resources) * 100, 2)
 
-print("% resource increase from base ", round((statistics.mean(total_list) - starting_resources), 2))  # fix this line to show % instead of difference
-print("Resources produced: ", round((statistics.mean(total_list)), 2))
-print("XP gained: ", round(statistics.mean(total_xp_list)), 2)
-#print("Crafting cycles: ")
+print("% resource increase from base ", "{:,}".format(resource_increase), "%")
+print("Resources produced: ", "{:,}".format(round((statistics.mean(total_list)), 2)))
+print("XP gained: ", "{:,}".format(round(statistics.mean(total_xp_list), 2)))
+print("Crafting time: ", timedelta(seconds=(crafting_time * crafting_cycles)))
