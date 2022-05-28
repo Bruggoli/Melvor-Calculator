@@ -13,6 +13,7 @@ total_list = []
 total_xp_list = []
 total_xp = 0
 crafting_cycles = 0
+c_c_list = []
 
 for i in range(ITERATIONS):
     processed_resources = 0
@@ -33,11 +34,13 @@ for i in range(ITERATIONS):
         total_xp_list.append(total_xp)
         starting_resources = r_cycle
         total_xp = 0
-    total_list.append(processed_resources)
+        c_c_list.append(crafting_cycles)
+        crafting_cycles = 0
+        total_list.append(processed_resources)
 
 resource_increase = round(((statistics.mean(total_list) - starting_resources) / starting_resources) * 100, 2)
 
 print("% resource increase from base ", "{:,}".format(resource_increase), "%")
 print("Resources produced: ", "{:,}".format(round((statistics.mean(total_list)), 2)))
 print("XP gained: ", "{:,}".format(round(statistics.mean(total_xp_list), 2)))
-print("Crafting time: ", timedelta(seconds=(crafting_time * crafting_cycles)))
+print("Crafting time: ", str(timedelta(seconds=crafting_time * round(statistics.mean(c_c_list)))))
